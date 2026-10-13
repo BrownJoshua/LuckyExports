@@ -425,6 +425,16 @@ td.buyer{color:#b4dcff;font-weight:700}
   .docs-table td:nth-child(2){color:#ffd9a0}
 }
 
+
+/* the order journey, played inside the page's own scroll */
+.oj-wrap{position:relative;height:900vh;background:#06150d}
+.oj-sticky{position:sticky;top:64px;height:calc(100vh - 64px);height:calc(100svh - 64px)}
+.oj-wrap::before,.oj-wrap::after{content:"";position:absolute;left:0;right:0;height:min(30vh,240px);z-index:5;pointer-events:none}
+.oj-wrap::before{top:0;background:linear-gradient(180deg,#06150d 0%,rgba(6,21,13,.7) 35%,rgba(6,21,13,0) 100%)}
+.oj-wrap::after{bottom:0;background:linear-gradient(0deg,#06150d 0%,rgba(6,21,13,.7) 35%,rgba(6,21,13,0) 100%)}
+.oj-sticky iframe{display:block;width:100%;height:100%;border:0;background:#06150d}
+@media (prefers-reduced-motion:reduce){.oj-wrap{height:auto}.oj-sticky{position:static;height:80vh}}
+
 /* ============ RESPONSIVE ============ */
 @media (max-width:900px){
   .steps{grid-template-columns:1fr 1fr}

@@ -12,6 +12,9 @@
 :root{--lime:#a6d96a;--gold:#ffb347;--deep:#06150d}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:var(--deep)}
+.emb,.emb body{height:100%;overflow:hidden}
+.emb .track{height:100%}
+.emb .back{display:none}
 body{font-family:'Manrope',system-ui,sans-serif;color:#fff;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 .track{position:relative;height:1000vh}
@@ -157,6 +160,15 @@ a{color:inherit;text-decoration:none}
   var lin = function (p, a, b) { return clamp((p - a) / (b - a), 0, 1); };
   var rad = Math.PI / 180;
   var seed = 11; function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+
+  /* when this page sits inside the main site, the parent page does the scrolling and tells us how far along we are */
+  var EMBED = !!window.__EMBED || /[?&]embed=1/.test(location.search), extP = 0;
+  if (EMBED) {
+    document.documentElement.classList.add('emb');
+    window.addEventListener('message', function (e) { if (e.data && typeof e.data.lj === 'number') extP = clamp(e.data.lj, 0, 1); });
+    var cta = document.getElementById('doneUi').querySelector('a');
+    cta.addEventListener('click', function (e) { e.preventDefault(); parent.postMessage('lucky:contact', '*'); });
+  }
 
   var svg = $('world'), stage = $('stage');
 
@@ -545,7 +557,7 @@ a{color:inherit;text-decoration:none}
   function update(time) {
     ticking = false;
     var rect = track.getBoundingClientRect(), total = rect.height - window.innerHeight;
-    var p = clamp(-rect.top / total, 0, 1); curP = p;
+    var p = EMBED ? extP : clamp(-rect.top / total, 0, 1); curP = p;
     var t = (time || performance.now()) / 1000;
     var cam = camAt(p), vx = cam + 800 - VW / 2;
     svg.setAttribute('viewBox', vx.toFixed(1) + ' 100 ' + VW + ' 800');

@@ -378,6 +378,26 @@
     });
   })();
 
+  /* ---------- order journey, driven by the page scroll ---------- */
+  (function () {
+    var wrap = document.getElementById('orderJourney'), fr = document.getElementById('ojFrame');
+    if (!wrap || !fr) return;
+    var pin = wrap.firstElementChild, tick = false, last = -1;
+    function send() {
+      tick = false;
+      var top = parseFloat(getComputedStyle(pin).top) || 0, rect = wrap.getBoundingClientRect(), sh = window.innerHeight - top;
+      var p = clamp((top - rect.top) / (rect.height - sh), 0, 1);
+      if (p !== last && fr.contentWindow) { fr.contentWindow.postMessage({ lj: p }, '*'); last = p; }
+    }
+    function on() { if (!tick) { tick = true; requestAnimationFrame(send); } }
+    window.addEventListener('scroll', on, { passive: true });
+    window.addEventListener('resize', on);
+    fr.addEventListener('load', function () { last = -1; send(); });
+    window.addEventListener('message', function (e) {
+      if (e.data === 'lucky:contact') { var c = document.getElementById('contact'); if (c) c.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  })();
+
   /* ---------- nav ---------- */
   var burger = document.getElementById('burger'), links = document.getElementById('links');
   burger.addEventListener('click', function () {
