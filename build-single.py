@@ -66,16 +66,38 @@ loader = '''<script>
 
 html = html.replace('<script src="script.js"></script>', loader + '<script>\n' + js + '\n</script>')
 
-# ---- fold the order-journey page into the same file ----
-# It plays inside the page's own scroll: the main script sends it the scroll progress.
+# ---- fold the order-journey page into the same file (opens as a full-screen overlay) ----
 import json
-NL = chr(10)
-BS = chr(92)
-journey = rd('order-journey.html').replace('<head>', '<head>' + NL + '<script>window.__EMBED=true;</script>', 1)
-html, n = re.subn(r'(<iframe id="ojFrame"[^>]*?) src="order-journey[.]html[?]embed=1"', lambda m: m.group(1), html)
-assert n == 1, 'journey iframe not found'
-doc = json.dumps(journey).replace('</', '<' + BS + '/')
-html = html.replace('</body>', '<script>(function(){var f=document.getElementById("ojFrame");if(f)f.srcdoc=' + doc + ';})();</script>' + NL + '</body>')
+journey = rd('order-journey.html')
+journey = journey.replace('<a class="back" href="lucky-exports.html">← Lucky Exports</a>', '<a class="back" href="#" id="closeJ">← Back to site</a>')
+journey = journey.replace('href="lucky-exports.html#contact"', 'href="#" id="ctaJ"')
+journey = journey.replace('</body>', """<script>
+document.getElementById('closeJ').addEventListener('click', function (e) { e.preventDefault(); parent.postMessage('lucky:close', '*'); });
+document.getElementById('ctaJ').addEventListener('click', function (e) { e.preventDefault(); parent.postMessage('lucky:contact', '*'); });
+</script>
+</body>""")
+html = html.replace('href="order-journey.html"', 'href="#journey" data-journey')
+overlay = """
+<div id="journeyOverlay" hidden style="position:fixed;inset:0;z-index:1000;background:#06150d">
+  <iframe id="journeyFrame" title="From order to delivery: an animated journey" style="border:0;width:100%;height:100%;display:block"></iframe>
+</div>
+<script>
+(function () {
+  var JOURNEY = __JOURNEY__;
+  var ov = document.getElementById('journeyOverlay'), fr = document.getElementById('journeyFrame'), loaded = false;
+  function open() { if (!loaded) { fr.srcdoc = JOURNEY; loaded = true; } ov.hidden = false; document.documentElement.style.overflow = 'hidden'; }
+  function close() { ov.hidden = true; document.documentElement.style.overflow = ''; }
+  [].forEach.call(document.querySelectorAll('a[data-journey]'), function (a) { a.addEventListener('click', function (e) { e.preventDefault(); open(); }); });
+  window.addEventListener('message', function (e) {
+    if (e.data === 'lucky:close') close();
+    if (e.data === 'lucky:contact') { close(); var c = document.getElementById('contact'); if (c) c.scrollIntoView({ behavior: 'smooth' }); }
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !ov.hidden) close(); });
+})();
+</script>
+"""
+overlay = overlay.replace('__JOURNEY__', json.dumps(journey).replace('</', '<\/'))
+html = html.replace('</body>', overlay + '</body>')
 
 out = os.path.join(here, 'lucky-exports.html')
 open(out, 'w', encoding='utf8').write(html)
