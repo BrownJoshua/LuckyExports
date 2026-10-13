@@ -1,0 +1,11 @@
+# reference screenshots, backups and local tooling
+Screenshot*.png
+images_original/
+.claude/
+lucky-exports-site.zip
+__pycache__/
+*.pyc
+# loose reference photos dropped in the project root (not part of the site)
+/IMG-*
+/istockphoto-*
+/pexels-*
