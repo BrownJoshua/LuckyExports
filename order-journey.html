@@ -136,11 +136,11 @@ a{color:inherit;text-decoration:none}
     <div class="cap" data-i="4"><span class="no">05</span><h2>Arrival &amp; delivery</h2><p>Import clearance and delivery order, then the container is trucked to the importer's warehouse.</p></div>
 
     <aside class="tracker" id="tracker" aria-label="Shipment tracker">
-      <div class="tk-head"><span>Shipment tracker</span><b id="dayTxt">Day 0</b></div>
+      <div class="tk-head"><span>Shipment tracker</span><b id="dayTxt">Step 1 / 20</b></div>
       <ol id="tkList"></ol>
       <p class="tk-foot">Indicative timeline for a bulk FOB order.</p>
     </aside>
-    <div class="daym" id="dayM" aria-hidden="true">Day 0</div>
+    <div class="daym" id="dayM" aria-hidden="true">Step 1 / 20</div>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <div class="hint" id="hint">Scroll to follow an order ↓</div>
     <div class="bar" id="bar" aria-hidden="true"><div class="line"></div><div class="fill" id="fill"></div></div>
@@ -358,7 +358,8 @@ a{color:inherit;text-decoration:none}
     '<rect width="280" height="120" rx="5" fill="#2f7d3a"/><rect width="280" height="120" rx="5" fill="url(#ribs)"/><rect width="280" height="9" fill="#1e5628"/><rect y="111" width="280" height="9" fill="#1e5628"/>' +
     '<text x="140" y="70" text-anchor="middle" font-family="Fraunces,serif" font-weight="700" font-size="30" letter-spacing="4" fill="#fff">LUCKY EXPORTS</text>' +
     '<text x="140" y="96" text-anchor="middle" font-family="Manrope,sans-serif" font-weight="700" font-size="13" letter-spacing="3" fill="#cfe8c6">SEMI HUSKED COCONUTS</text>' +
-    '<rect id="heroTarp" x="-3" y="-34" width="0" height="42" rx="6" fill="#d9e0e5"/></g>';
+    '<rect id="heroTarp" x="-3" y="-34" width="0" height="42" rx="6" fill="#d9e0e5"/>' +
+    '<g id="heroSeal" opacity="0"><rect x="226" y="-14" width="52" height="26" rx="5" fill="#d94a3a" stroke="#fff" stroke-width="2"/><text x="252" y="4" text-anchor="middle" font-family="Manrope,sans-serif" font-weight="700" font-size="13" letter-spacing="1" fill="#fff">SEAL</text></g></g>';
 
   near += ship_placeholder();
   function ship_placeholder() { return '<g id="shipSlot"></g>'; }
@@ -433,6 +434,88 @@ a{color:inherit;text-decoration:none}
   var lorryEl = $('lorry'), truck2 = $('truck2'), wk = $('wk'), wkTorso = $('wkTorso'), wkArm = $('wkArm');
   var nutFly = $('nutFly'), pileG = $('pile'), bedNuts = $('bedNuts');
   var cursor = $('cursor'), inv = $('inv');
+  /* ============================== EXTRA STEPS: people, papers, stamps ============================== */
+  // each step of the real export process gets its own little scene, so nothing is only "said" in text
+  function person(o) {
+    var s = '<ellipse cx="0" cy="3" rx="34" ry="7" fill="#000" opacity=".22"/>' +
+      '<path d="M-8-82L-10-4M10-82L12-4" stroke="' + o.pants + '" stroke-width="19" stroke-linecap="round"/><ellipse cx="-11" cy="-2" rx="12" ry="6" fill="#222"/><ellipse cx="14" cy="-2" rx="12" ry="6" fill="#222"/>' +
+      '<rect x="-23" y="-166" width="46" height="90" rx="15" fill="' + o.shirt + '"/>' + (o.vest || '') +
+      '<rect x="-5" y="-176" width="10" height="14" fill="' + o.skin + '"/><circle cx="2" cy="-192" r="20" fill="' + o.skin + '"/>' + (o.hat || '') +
+      '<circle cx="9" cy="-191" r="2.4" fill="#1a0f08"/><path d="M5-182q5 3 10 0" stroke="#4a2a14" stroke-width="2" fill="none"/>' +
+      '<path d="M0-146L26-118" stroke="' + o.shirt + '" stroke-width="14" stroke-linecap="round"/><circle cx="28" cy="-116" r="7.5" fill="' + o.skin + '"/>' + (o.prop || '');
+    return s;
+  }
+  var CLIP = '<g transform="translate(30,-132)"><rect x="-4" y="-10" width="34" height="44" rx="4" fill="#8a5a2b"/><rect x="0" y="-4" width="26" height="36" fill="#fff"/><path d="M4 4h18M4 12h18M4 20h12" stroke="#9aa5ad" stroke-width="2.5"/><path d="M5 26l4 4 8-9" stroke="#2f9d55" stroke-width="3" fill="none" stroke-linecap="round"/></g>';
+  var TABLET = '<g transform="translate(32,-130) rotate(-8)"><rect x="-2" y="-8" width="36" height="28" rx="4" fill="#223"/><rect x="2" y="-4" width="28" height="20" fill="#8fd0f0"/><path d="M6 2h14M6 8h20" stroke="#fff" stroke-width="2.5"/></g>';
+  var DOCSTAMP = '<g transform="translate(34,-150)"><rect width="46" height="58" rx="3" fill="#fff" stroke="#9aa5ad" stroke-width="2"/><path d="M6 10h34M6 18h34M6 26h22" stroke="#b9c3ca" stroke-width="3"/></g>';
+  function stampMark(x, y, txt, col) {
+    return '<g data-st="' + x + ',' + y + '" transform="translate(' + x + ',' + y + ') scale(0)"><circle r="22" fill="none" stroke="' + col + '" stroke-width="4"/><circle r="17" fill="' + col + '" opacity=".14"/>' +
+      '<path d="M-9 1l6 7 12-14" stroke="' + col + '" stroke-width="5" fill="none" stroke-linecap="round"/><text y="39" text-anchor="middle" font-family="Manrope,sans-serif" font-weight="700" font-size="11" letter-spacing="1" fill="' + col + '">' + txt + '</text></g>';
+  }
+  function badge(text) {
+    var w = 74 + text.length * 12.6;
+    return '<g><rect x="' + (-w / 2) + '" y="-34" width="' + w + '" height="54" rx="27" fill="#fff" stroke="#12301f" stroke-width="3"/>' +
+      '<circle cx="' + (-w / 2 + 29) + '" cy="-7" r="16" fill="#2f9d55"/><path d="M' + (-w / 2 + 21) + ' -7l6 7 11-13" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>' +
+      '<text x="' + (-w / 2 + 54) + '" y="1" font-family="Manrope,sans-serif" font-weight="700" font-size="21" fill="#12301f">' + text + '</text>' +
+      '<path d="M-9 19l9 13 9-13z" fill="#fff" stroke="#12301f" stroke-width="3" stroke-linejoin="round"/><path d="M-6 17h12" stroke="#fff" stroke-width="5"/></g>';
+  }
+  var INSP = { shirt: '#3a7ca5', pants: '#3b4452', skin: '#b5835a', vest: '<path d="M-23-160h14v80h-14zM9-160h14v80H9z" fill="#ff8a1f"/><path d="M-23-120h46M-23-100h46" stroke="#fff3" stroke-width="3"/>', hat: '<path d="M-20-196a22 22 0 0144 0z" fill="#ffd23f"/><rect x="-22" y="-198" width="48" height="6" rx="3" fill="#e3b617"/>', prop: CLIP };
+  var PHYTO = { shirt: '#86b8e0', pants: '#3a4a5c', skin: '#c68642', vest: '<path d="M-3-160l3 26 3-26z" fill="#2f9d55"/>', hat: '<path d="M-20-198a22 20 0 0144 0z" fill="#f4f6f8"/><rect x="-22" y="-199" width="48" height="6" rx="3" fill="#cfd8dc"/>', prop: DOCSTAMP + stampMark(60, -190, 'PHYTO OK', '#2f9d55') };
+  var CUSTOMS = { shirt: '#243a5e', pants: '#1c2740', skin: '#8d5524', vest: '<rect x="-23" y="-150" width="46" height="6" fill="#d4a017"/><circle cx="12" cy="-132" r="5" fill="#d4a017"/>', hat: '<path d="M-21-198a23 21 0 0146 0z" fill="#1c2740"/><rect x="-24" y="-199" width="54" height="8" rx="3" fill="#0f1830"/><circle cx="2" cy="-206" r="4" fill="#d4a017"/>', prop: TABLET };
+  var CUSTOMS2 = { shirt: '#243a5e', pants: '#1c2740', skin: '#c68642', vest: CUSTOMS.vest, hat: CUSTOMS.hat, prop: DOCSTAMP + stampMark(60, -190, 'CLEARED', '#2f9d55') };
+  var CUSTOMS1 = { shirt: '#243a5e', pants: '#1c2740', skin: '#8d5524', vest: CUSTOMS.vest, hat: CUSTOMS.hat, prop: DOCSTAMP + stampMark(60, -190, 'LET EXPORT', '#2f9d55') };
+  var INSP2 = { shirt: '#6c4cb0', pants: '#334155', skin: '#c68642', vest: '', hat: '<path d="M-19-190a21 20 0 0140 0c-6-6-14-8-20-8s-14 2-20 8z" fill="#2a1d14"/>', prop: CLIP };
+
+  // [id, x, y, fade-in start, fully in, start fading out, gone, svg, scale]
+  var EV = [
+    ['adv', 1840, 440, .165, .18, .205, .23, badge('50% advance received'), 1],
+    ['qa', 2200, G + 40, .295, .31, .36, .375, person(INSP) + '<g transform="translate(0,-232)">' + badge('Quality check passed') + '</g>', 1.05],
+    ['bal', 2820, 400, .36, .372, .4, .42, badge('20% balance received'), 1],
+    ['phy', 3410, G + 44, .5, .515, .545, .56, person(PHYTO) + '<g transform="translate(20,-262)">' + badge('Phytosanitary certificate') + '</g>', 1.1],
+    ['cus', 3770, G + 44, .545, .56, .585, .6, person(CUSTOMS1) + '<g transform="translate(20,-262)">' + badge('Customs cleared for export') + '</g>', 1.1],
+    ['bl', 4560, 470, .59, .6, .625, .64, badge('Bill of lading issued'), 1],
+    ['fin', 4560, 470, .64, .65, .672, .685, badge('Final 30% paid, documents sent'), 1],
+    ['arr', 6430, 462, .84, .852, .87, .882, badge('Arrival notice received'), 1],
+    ['imp', 7010, G + 44, .875, .89, .915, .93, person(CUSTOMS2) + '<g transform="translate(20,-262)">' + badge('Import customs cleared') + '</g>', 1.1],
+    ['do', 6905, 520, .915, .93, .955, .97, badge('Delivery order released'), 1],
+    ['chk', 8520, G - 222, .975, .985, 1.2, 1.3, badge('Goods checked and received'), 1]
+  ];
+  var propsG = mk('g', { id: 'props' }, $('near'));
+  var evEls = EV.map(function (e) { var g = mk('g', { opacity: 0 }, propsG); g.innerHTML = e[7]; return g; });
+  // coins (advance payment) and the document courier
+  var coins = [0, 1, 2].map(function () { var g = mk('g', { opacity: 0 }, propsG); g.innerHTML = '<circle r="22" fill="#f4c542" stroke="#b8860b" stroke-width="3"/><circle r="15" fill="none" stroke="#b8860b" stroke-width="2"/><text y="9" text-anchor="middle" font-family="Manrope,sans-serif" font-weight="700" font-size="24" fill="#7a5a00">$</text>'; return g; });
+  var envs = [0, 1].map(function () { var g = mk('g', { opacity: 0 }, propsG); g.innerHTML = '<rect x="-30" y="-20" width="60" height="40" rx="4" fill="#fff" stroke="#12301f" stroke-width="3"/><path d="M-30-18L0 6l30-24" stroke="#12301f" stroke-width="3" fill="none"/><circle cx="20" cy="14" r="9" fill="#d94a3a"/>'; return g; });
+  function backOut(t) { t = clamp(t, 0, 1) - 1; return 1 + 2.70158 * t * t * t + 1.70158 * t * t; }
+  function updateProps(p, shipX) {
+    EV.forEach(function (e, i) {
+      var g = evEls[i], op = seg(p, e[3], e[4]) * (1 - seg(p, e[5], e[6]));
+      if (op < .01) { if (g.getAttribute('display') !== 'none') g.setAttribute('display', 'none'); return; }
+      g.setAttribute('display', 'inline'); g.setAttribute('opacity', op.toFixed(2));
+      var s = (.55 + .45 * backOut(lin(p, e[3], e[4]))) * e[8];
+      g.setAttribute('transform', 'translate(' + e[1] + ',' + (e[2] - 10 * (1 - seg(p, e[3], e[4]))).toFixed(1) + ') scale(' + s.toFixed(3) + ')');
+      var k = seg(p, e[3] + (e[5] - e[3]) * .35, e[3] + (e[5] - e[3]) * .6);
+      [].forEach.call(g.querySelectorAll('[data-st]'), function (st) {
+        var xy = st.getAttribute('data-st'); st.setAttribute('transform', 'translate(' + xy + ') scale(' + (backOut(k) * 1.0).toFixed(3) + ')');
+      });
+    });
+    // 50% advance: coins fly from the buyer's laptop to the packhouse
+    coins.forEach(function (c, i) {
+      var f = lin(p, .105 + i * .012, .17 + i * .012);
+      if (f <= 0 || f >= 1) { c.setAttribute('display', 'none'); return; }
+      c.setAttribute('display', 'inline'); c.setAttribute('opacity', (1 - seg(f, .85, 1)).toFixed(2));
+      c.setAttribute('transform', 'translate(' + lerp(870, 1890, sm(f)).toFixed(1) + ',' + (lerp(330, 590, sm(f)) - Math.sin(Math.PI * f) * 210).toFixed(1) + ') rotate(' + (f * 720).toFixed(0) + ') scale(' + (1 - i * .15) + ')');
+    });
+    // documents travel ahead by courier: sent after loading, arrive before the ship
+    var e1 = lin(p, .672, .75), e2 = lin(p, .875, .91);
+    envs[0].setAttribute('display', e1 > 0 && e1 < 1 ? 'inline' : 'none');
+    envs[0].setAttribute('opacity', (1 - seg(e1, .8, 1)).toFixed(2));
+    envs[0].setAttribute('transform', 'translate(' + (shipX + 460 + 1500 * sm(e1)).toFixed(1) + ',' + (440 - 330 * sm(e1) - Math.sin(Math.PI * e1) * 60).toFixed(1) + ') rotate(' + (-14 + 28 * e1).toFixed(0) + ')');
+    envs[1].setAttribute('display', e2 > 0 && e2 < 1 ? 'inline' : 'none');
+    envs[1].setAttribute('opacity', (1 - seg(e2, .85, 1)).toFixed(2));
+    envs[1].setAttribute('transform', 'translate(' + lerp(7720, 6990, sm(e2)).toFixed(1) + ',' + lerp(150, 430, sm(e2)).toFixed(1) + ') rotate(' + (16 - 30 * e2).toFixed(0) + ')');
+  }
+
+
 
   // coconut pile (outermost first = picked first)
   var pile = [];
@@ -526,26 +609,25 @@ a{color:inherit;text-decoration:none}
 
   /* shipment tracker: every real step of an FOB export, from order to delivery */
   var MS = [
-    [0, 0, 'Buyer places the order online'], [.075, 1, 'Proforma invoice issued'], [.12, 3, '50% advance payment received'],
-    [.19, 6, 'Nuts sourced and graded at the packhouse'], [.26, 10, 'Semi-husked and packed for ventilation'], [.33, 12, 'Pre-shipment quality check passed'],
-    [.37, 13, '20% balance received, cargo loaded on lorry'], [.42, 15, 'Arrived at Tuticorin Port'], [.46, 16, 'Container stuffed and sealed'],
-    [.51, 17, 'Phytosanitary certificate issued'], [.545, 18, 'Shipping bill filed, export customs cleared'], [.585, 19, 'Container lifted on board, bill of lading issued'],
-    [.635, 19, 'Final 30% paid, documents released'], [.675, 20, 'Vessel sails from Tuticorin'], [.74, 35, 'Ocean transit'],
-    [.84, 50, 'Vessel arrives at destination port'], [.875, 52, 'Import customs cleared, delivery order issued'], [.915, 53, 'Container lifted onto delivery truck'],
-    [.965, 54, "Truck leaves for the importer's warehouse"], [.985, 55, "Delivered to the importer's warehouse"]
+    [0, 'Buyer places the order online'], [.075, 'Proforma invoice issued'], [.12, '50% advance payment received'],
+    [.19, 'Nuts sourced and graded at the packhouse'], [.26, 'Semi-husked and packed for ventilation'], [.33, 'Pre-shipment quality check passed'],
+    [.37, '20% balance received, cargo loaded on lorry'], [.42, 'Arrived at Tuticorin Port'], [.46, 'Container stuffed and sealed'],
+    [.51, 'Phytosanitary certificate issued'], [.545, 'Shipping bill filed, export customs cleared'], [.585, 'Container lifted on board, bill of lading issued'],
+    [.635, 'Final 30% paid, documents released'], [.675, 'Vessel sails from Tuticorin'], [.74, 'Ocean transit'],
+    [.84, 'Vessel arrives at destination port'], [.875, 'Import customs cleared, delivery order issued'], [.915, 'Container lifted onto delivery truck'],
+    [.965, "Truck leaves for the importer's warehouse"], [.985, "Delivered to the importer's warehouse"]
   ];
   var tkList = $('tkList'), tkEls = [], lastMs = -1, toastEl = $('toast'), toastT = 0;
-  MS.forEach(function (m) { var li = document.createElement('li'); li.innerHTML = '<small>Day ' + m[1] + '</small>' + m[2]; tkList.appendChild(li); tkEls.push(li); });
-  function dayAt(p) { for (var i = 0; i < MS.length - 1; i++) if (p < MS[i + 1][0]) return lerp(MS[i][1], MS[i + 1][1], clamp((p - MS[i][0]) / (MS[i + 1][0] - MS[i][0]), 0, 1)); return 55; }
+  MS.forEach(function (m) { var li = document.createElement('li'); li.innerHTML = '<small>Step ' + (tkEls.length + 1) + '</small>' + m[1]; tkList.appendChild(li); tkEls.push(li); });
   function tracker(p) {
     var idx = 0; for (var i = 0; i < MS.length; i++) if (p >= MS[i][0]) idx = i;
-    var d = 'Day ' + Math.round(dayAt(p)); $('dayTxt').textContent = d; $('dayM').textContent = d;
+    var d = 'Step ' + (idx + 1) + ' / ' + MS.length; $('dayTxt').textContent = d; $('dayM').textContent = d;
     if (idx !== lastMs) {
       var up = idx > lastMs && lastMs >= 0;
       lastMs = idx;
       tkEls.forEach(function (li, i) { li.classList.toggle('done', i < idx); li.classList.toggle('cur', i === idx); });
       var cur = tkEls[idx]; if (cur && tkList.scrollHeight > tkList.clientHeight) tkList.scrollTop = cur.offsetTop - tkList.clientHeight / 2 + cur.offsetHeight / 2;
-      if (up) { toastEl.textContent = '✓ ' + MS[idx][2]; toastEl.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(function () { toastEl.classList.remove('on'); }, 2600); }
+      if (up) { toastEl.textContent = '✓ ' + MS[idx][1]; toastEl.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(function () { toastEl.classList.remove('on'); }, 2600); }
     }
   }
 
@@ -691,6 +773,9 @@ a{color:inherit;text-decoration:none}
     hero.setAttribute('transform', 'translate(' + hx.toFixed(1) + ',' + hy.toFixed(1) + ') scale(' + hs.toFixed(3) + ') translate(-140,-60)');
     heroHeap.setAttribute('transform', 'translate(0,8) scale(1,' + (heapFill * (1 - seg(p, .49, .5) * 0)).toFixed(3) + ')');
     heroTarp.setAttribute('width', (286 * seg(p, .49, .505)).toFixed(1));
+    $('heroSeal').setAttribute('opacity', seg(p, .505, .52).toFixed(2));
+
+    updateProps(p, shipX);
 
     /* ---- HUD ---- */
     var stage_i = 0; for (var si2 = 0; si2 < STAGES.length; si2++) if (p >= STAGES[si2]) stage_i = si2;
