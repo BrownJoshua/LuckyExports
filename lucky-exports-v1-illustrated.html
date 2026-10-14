@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lucky Exports — Semi Husked Coconut Exporters, Tamil Nadu</title>
+<meta name="description" content="Lucky Exports ships semi-husked coconuts in bulk from Namakkal, Tamil Nadu, loaded at Tuticorin Port and delivered to importers worldwide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#08233a;
+  --deep:#04131f;
+  --sea:#0f5d7e;
+  --palm:#2f7d3a;
+  --lime:#a6d96a;
+  --husk:#7a4a24;
+  --cream:#f7f2e8;
+  --ink:#122230;
+  --muted:#5b6b76;
+  --gold:#ffb347;
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Manrope',system-ui,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;line-height:1.1;font-weight:700}
+.wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+
+/* ============ HERO ============ */
+.hero{position:relative;height:100vh;height:100svh;min-height:680px;overflow:hidden;color:#fff;isolation:isolate;background:#0b2a4a}
+.hero>*{position:absolute}
+.sky{inset:0;background:linear-gradient(180deg,#071c33 0%,#14436b 28%,#3d86b0 48%,#f2b074 60%,#fbd9a0 62%)}
+.sun{left:62%;top:44%;width:150px;height:150px;border-radius:50%;
+  background:radial-gradient(circle,#fff6d6 0 28%,#ffd98a 45%,rgba(255,190,110,.35) 62%,rgba(255,190,110,0) 72%);
+  transform:translate(-50%,-50%);filter:blur(1px);box-shadow:0 0 140px 60px rgba(255,180,100,.35)}
+.cloud{height:60px;border-radius:50%;filter:blur(14px);background:rgba(255,236,214,.5);animation:drift linear infinite}
+.cloud.c1{top:34%;width:340px;left:-380px;animation-duration:150s;opacity:.7}
+.cloud.c2{top:22%;width:460px;left:-480px;height:70px;animation-duration:210s;animation-delay:-80s;opacity:.45}
+.cloud.c3{top:42%;width:280px;left:-300px;animation-duration:180s;animation-delay:-130s;opacity:.55}
+@keyframes drift{to{transform:translateX(calc(100vw + 900px))}}
+
+.port{left:0;width:100%;height:5.5vw;min-height:36px;max-height:80px;top:calc(61.5% - 5.5vw);z-index:1}
+@media (min-width:1455px){.port{top:calc(61.5% - 80px)}}
+
+.sea{left:0;right:0;top:61.5%;bottom:0;z-index:2;
+  background:linear-gradient(180deg,#e7b27a 0%,#5c8fa6 3%,#1f7392 12%,#0c4766 45%,#06263b 100%)}
+.glitter{left:0;right:0;top:61.5%;height:22%;z-index:3;pointer-events:none;
+  background:
+    repeating-linear-gradient(180deg,rgba(255,224,170,.0) 0 5px,rgba(255,224,170,.5) 5px 6px,rgba(255,224,170,0) 6px 14px);
+  -webkit-mask:radial-gradient(ellipse 14% 100% at 62% 0,#000 0,transparent 100%);
+  mask:radial-gradient(ellipse 14% 100% at 62% 0,#000 0,transparent 100%);
+  animation:shimmer 3.5s ease-in-out infinite alternate}
+@keyframes shimmer{from{opacity:.55;transform:scaleX(.96)}to{opacity:1;transform:scaleX(1.05)}}
+
+/* waves */
+.waves{left:0;width:100%;overflow:hidden;pointer-events:none}
+.waves svg{display:block;width:200%;height:100%;animation:wave linear infinite}
+@keyframes wave{to{transform:translateX(-50%)}}
+.waves.back{bottom:20%;height:9%;z-index:4;opacity:.8}
+.waves.back svg{animation-duration:32s}
+.waves.mid{bottom:9%;height:15%;z-index:7}
+.waves.mid svg{animation-duration:22s;animation-direction:reverse}
+.waves.front{bottom:0;height:16%;z-index:9}
+.waves.front svg{animation-duration:15s}
+
+/* ship */
+.ship-wrap{right:2%;bottom:13%;width:clamp(420px,56vw,880px);z-index:5}
+.ship{position:relative;width:100%;container-type:inline-size;transform-origin:50% 85%;animation:bob 7s ease-in-out infinite}
+@keyframes bob{
+  0%,100%{transform:translateY(0) rotate(-.7deg)}
+  25%{transform:translateY(5px) rotate(.2deg)}
+  50%{transform:translateY(0) rotate(.9deg)}
+  75%{transform:translateY(6px) rotate(-.2deg)}
+}
+.ship-svg{display:block;width:100%;height:auto;filter:drop-shadow(0 18px 18px rgba(0,0,0,.45))}
+.beacon{animation:blink 1.4s steps(1) infinite}
+@keyframes blink{50%{opacity:.1}}
+
+.bow-foam,.stern-wake{position:absolute;pointer-events:none;border-radius:50%;background:radial-gradient(ellipse,rgba(255,255,255,.85),rgba(255,255,255,0) 70%);filter:blur(3px)}
+.bow-foam{right:-2%;bottom:7%;width:16%;height:6%;animation:foam 2.4s ease-in-out infinite alternate}
+.stern-wake{left:-10%;bottom:6%;width:34%;height:5%;opacity:.7;animation:foam 3s ease-in-out infinite alternate-reverse}
+@keyframes foam{from{transform:scale(.85);opacity:.55}to{transform:scale(1.1);opacity:1}}
+
+/* smoke — origin on the funnel top (79/700, 58/300 of ship box) */
+.smoke{position:absolute;left:11.3%;top:19.3%;width:0;height:0;z-index:3;pointer-events:none}
+.puff{position:absolute;left:0;top:0;width:7cqw;height:7cqw;margin:-3.5cqw 0 0 -3.5cqw;border-radius:50%;opacity:0;
+  background:radial-gradient(circle at 40% 40%,rgba(120,120,125,.95),rgba(55,55,60,.8) 55%,rgba(40,40,45,0) 72%);
+  filter:blur(5px);animation:smoke 6.5s ease-out infinite}
+.puff.steam{background:radial-gradient(circle at 40% 40%,rgba(255,255,255,.95),rgba(235,240,245,.7) 55%,rgba(255,255,255,0) 72%);animation:steam 2.6s ease-out forwards}
+@keyframes smoke{
+  0%{transform:translate(0,0) scale(.35);opacity:0}
+  8%{opacity:.9}
+  100%{transform:translate(var(--dx,-28cqw),var(--dy,-24cqw)) scale(var(--s,3.6));opacity:0}
+}
+@keyframes steam{
+  0%{transform:translate(0,0) scale(.3);opacity:0}
+  12%{opacity:1}
+  100%{transform:translate(var(--dx),var(--dy)) scale(var(--s));opacity:0}
+}
+
+/* nav */
+.nav{top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:18px max(20px,calc((100% - 1120px)/2))}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-size:1.35rem;font-weight:600;text-shadow:0 1px 8px rgba(0,0,0,.35)}
+.brand b{color:var(--lime);font-weight:700}
+.links{display:flex;align-items:center;gap:30px;list-style:none;font-weight:600;font-size:.95rem}
+.links a{text-shadow:0 1px 8px rgba(0,0,0,.4);opacity:.92;transition:opacity .2s}
+.links a:hover{opacity:1}
+.links .cta-sm{background:#fff;color:var(--navy);padding:9px 18px;border-radius:99px;text-shadow:none;opacity:1}
+.burger{display:none;background:none;border:0;width:38px;height:38px;cursor:pointer;position:relative}
+.burger span{position:absolute;left:8px;right:8px;height:2px;background:#fff;transition:.25s}
+.burger span:first-child{top:14px}.burger span:last-child{top:22px}
+.burger[aria-expanded=true] span:first-child{top:18px;transform:rotate(45deg)}
+.burger[aria-expanded=true] span:last-child{top:18px;transform:rotate(-45deg)}
+
+/* copy */
+.hero-copy{left:max(20px,calc((100% - 1120px)/2));top:13%;z-index:12;width:min(540px,100% - 40px);text-shadow:0 2px 24px rgba(3,15,28,.55)}
+.eyebrow{font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:16px}
+.hero h1{font-size:clamp(2.4rem,5.6vw,4.6rem);letter-spacing:-.02em}
+.hero h1 em{font-style:italic;color:var(--lime)}
+.lede{margin-top:18px;font-size:clamp(.98rem,1.3vw,1.1rem);max-width:440px;color:#eef5f9}
+.hero-actions{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px;text-shadow:none}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:99px;font:700 .95rem 'Manrope',sans-serif;border:2px solid transparent;cursor:pointer;transition:transform .2s,background .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:#fff;color:var(--navy);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.btn.primary.dark{background:var(--navy);color:#fff;box-shadow:none}
+.btn.horn{background:rgba(8,35,58,.45);color:#fff;border-color:rgba(255,255,255,.55);backdrop-filter:blur(6px)}
+.btn.horn:hover{background:rgba(8,35,58,.7)}
+.btn.horn.on .horn-ico{animation:shake .15s 8}
+@keyframes shake{25%{transform:rotate(-12deg)}75%{transform:rotate(12deg)}}
+
+.toot{z-index:15;right:8%;top:30%;font:700 clamp(2rem,5vw,4rem) 'Fraunces',serif;letter-spacing:.06em;color:#fff;opacity:0;pointer-events:none;text-shadow:0 4px 30px rgba(0,0,0,.5)}
+.toot.go{animation:toot 2.4s ease-out}
+@keyframes toot{0%{opacity:0;transform:scale(.6) rotate(-4deg)}15%{opacity:1;transform:scale(1.05) rotate(-4deg)}70%{opacity:.9}100%{opacity:0;transform:scale(1.4) rotate(-4deg) translateY(-30px)}}
+
+.scroll-hint{left:50%;bottom:16px;z-index:20;width:26px;height:42px;border:2px solid rgba(255,255,255,.7);border-radius:20px;transform:translateX(-50%)}
+.scroll-hint span{position:absolute;left:50%;top:8px;width:4px;height:8px;border-radius:2px;background:#fff;transform:translateX(-50%);animation:sc 1.6s infinite}
+@keyframes sc{0%{opacity:0;top:8px}30%{opacity:1}100%{opacity:0;top:22px}}
+
+/* ============ SECTIONS ============ */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);background:var(--navy);color:#fff;padding:28px max(20px,calc((100% - 1120px)/2));gap:20px}
+.strip div{text-align:center;border-right:1px solid rgba(255,255,255,.14)}
+.strip div:last-child{border:0}
+.strip strong{display:block;font:700 1.5rem 'Fraunces',serif;color:var(--lime)}
+.strip span{font-size:.85rem;opacity:.8}
+
+.section{padding:clamp(64px,9vw,120px) 0}
+.kicker{font-size:.78rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--palm);margin-bottom:12px}
+.kicker.light{color:var(--gold)}
+h2{font-size:clamp(1.9rem,3.8vw,3rem);letter-spacing:-.015em;max-width:18ch}
+h2.light{color:#fff}
+.two{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(30px,6vw,90px);align-items:start}
+.prose p{margin-bottom:16px;color:#33444f}
+.ticks{list-style:none;margin-top:20px;display:grid;gap:10px}
+.ticks li{padding-left:30px;position:relative;font-weight:600}
+.ticks li::before{content:"";position:absolute;left:0;top:.35em;width:16px;height:16px;border-radius:50%;background:var(--palm) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E") center/contain}
+
+.product{background:#fff}
+.product h2{max-width:none;margin-bottom:40px}
+.product-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,6vw,80px);align-items:center}
+.product-art svg{width:100%;max-width:420px;display:block;margin:auto}
+.specs>p{font-size:1.1rem;color:#33444f;margin-bottom:22px}
+dl{border-top:1px solid #dfe5e8;margin-bottom:28px}
+dl div{display:grid;grid-template-columns:140px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid #dfe5e8}
+dt{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700;padding-top:3px}
+dd{font-weight:600}
+
+.process{background:linear-gradient(180deg,var(--navy),var(--deep));color:#fff}
+.steps{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:48px;counter-reset:s}
+.steps li{padding:24px 20px;border-radius:var(--radius);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);transition:transform .25s,background .25s}
+.steps li:hover{transform:translateY(-6px);background:rgba(255,255,255,.1)}
+.steps span{font:700 .85rem 'Manrope';color:var(--gold);letter-spacing:.15em}
+.steps h3{font-size:1.25rem;margin:10px 0 8px}
+.steps p{font-size:.92rem;color:#c3d3dd}
+
+.muted{color:var(--muted);margin-top:16px;max-width:42ch}
+.pay{background:#fff;border-radius:var(--radius);padding:30px;box-shadow:0 20px 50px rgba(8,35,58,.08)}
+.pay h3{font-size:1.3rem;margin-bottom:18px}
+.bar{display:flex;gap:4px;height:84px;border-radius:10px;overflow:hidden}
+.bar div{flex:var(--w) 1 0;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff;text-align:center;padding:6px}
+.bar div:nth-child(1){background:var(--palm)}
+.bar div:nth-child(2){background:#3a8fb0}
+.bar div:nth-child(3){background:var(--navy)}
+.bar b{font:700 1.4rem 'Fraunces',serif}.bar span{font-size:.78rem;opacity:.9}
+
+.contact{background:linear-gradient(135deg,#0b3a56,var(--navy));color:#fff}
+.lede-dark{margin-top:18px;color:#cfdde6;max-width:44ch}
+.card{font-style:normal;background:#fff;color:var(--ink);padding:32px;border-radius:var(--radius);box-shadow:0 24px 60px rgba(0,0,0,.3)}
+.card h3{font-size:1.5rem;margin-bottom:12px}
+.card p{margin-bottom:14px}
+.card .ph{display:flex;justify-content:space-between;gap:12px;border-top:1px solid #e2e8eb;padding-top:14px;margin:0 0 0}
+.card .ph+.ph{margin-top:14px}
+.card .ph span{color:var(--muted)}
+
+footer{background:var(--deep);color:#8fa3b0;text-align:center;padding:26px 20px;font-size:.88rem}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:900px){
+  .steps{grid-template-columns:1fr 1fr}
+  .two,.product-grid{grid-template-columns:1fr}
+  .strip{grid-template-columns:1fr 1fr}
+  .strip div:nth-child(2){border:0}
+}
+@media (max-width:760px){
+  .burger{display:block}
+  .links{position:absolute;top:100%;left:16px;right:16px;flex-direction:column;align-items:stretch;gap:0;background:rgba(4,19,31,.92);backdrop-filter:blur(10px);border-radius:14px;padding:8px;display:none}
+  .links.open{display:flex}
+  .links a{display:block;padding:12px 14px}
+  .links .cta-sm{text-align:center;margin-top:4px}
+  .hero{min-height:800px}
+  .hero-copy{top:11%}
+  .ship-wrap{right:-3%;width:100vw;bottom:11%}
+  .sun{left:76%;top:50%;width:110px;height:110px}
+  .toot{right:4%;top:36%}
+  .scroll-hint{display:none}
+  dl div{grid-template-columns:1fr;gap:2px}
+}
+@media (max-width:520px){.steps{grid-template-columns:1fr}.btn{padding:12px 20px}}
+@media (prefers-reduced-motion:reduce){
+  .ship,.cloud,.waves svg,.puff,.glitter,.beacon,.bow-foam,.stern-wake{animation:none!important}
+  .puff{opacity:.35}
+}
+
+</style>
+</head>
+<body>
+
+<header class="hero" id="top">
+  <!-- SKY -->
+  <div class="sky"></div>
+  <div class="sun"></div>
+  <div class="cloud c1"></div>
+  <div class="cloud c2"></div>
+  <div class="cloud c3"></div>
+
+  <!-- distant port with cranes -->
+  <svg class="port" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true">
+    <g fill="#27465e" opacity=".75">
+      <rect x="0" y="62" width="1200" height="18"/>
+      <rect x="120" y="50" width="60" height="12"/><rect x="186" y="46" width="44" height="16"/>
+      <rect x="700" y="52" width="90" height="10"/><rect x="800" y="48" width="50" height="14"/>
+      <path d="M300 62V20h4v42zM300 22h60v3h-60zM356 22v18h2V22z"/>
+      <path d="M380 62V26h4v36zM380 28h50v3h-50zM426 28v14h2V28z"/>
+      <path d="M980 62V18h4v44zM940 20h70v3h-70zM944 20v18h2V20z"/>
+      <path d="M1040 62V28h4v34zM1040 30h50v3h-50z"/>
+    </g>
+  </svg>
+
+  <!-- SEA -->
+  <div class="sea"></div>
+  <div class="glitter"></div>
+  <div class="waves back" data-wave="back"></div>
+
+  <!-- SHIP -->
+  <div class="ship-wrap">
+    <div class="ship" id="ship">
+      <div class="smoke" id="smoke" aria-hidden="true"></div>
+      <svg class="ship-svg" viewBox="0 0 700 300" role="img" aria-label="Cargo ship carrying containers">
+        <defs>
+          <linearGradient id="hullG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2c3b4b"/><stop offset="1" stop-color="#121c27"/>
+          </linearGradient>
+          <linearGradient id="redG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#b3261e"/><stop offset="1" stop-color="#6e1410"/>
+          </linearGradient>
+          <linearGradient id="whiteG" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#e9edf0"/><stop offset="1" stop-color="#bcc6cd"/>
+          </linearGradient>
+          <linearGradient id="sunSide" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#ffb066" stop-opacity=".35"/>
+          </linearGradient>
+        </defs>
+
+        <!-- funnel -->
+        <g id="funnel">
+          <rect x="52" y="62" width="40" height="56" fill="#c8362b"/>
+          <rect x="52" y="62" width="40" height="9" fill="#14202b"/>
+          <rect x="52" y="86" width="40" height="8" fill="#f1f1f1"/>
+          <rect x="52" y="62" width="40" height="56" fill="url(#sunSide)"/>
+          <rect x="48" y="58" width="48" height="6" fill="#0d151d"/>
+        </g>
+
+        <!-- containers (filled by script.js) -->
+        <g id="containers"></g>
+
+        <!-- superstructure -->
+        <g id="bridge">
+          <rect x="40" y="118" width="130" height="68" fill="url(#whiteG)"/>
+          <rect x="62" y="96" width="106" height="24" fill="#f3f5f6"/>
+          <rect x="62" y="96" width="106" height="3" fill="#b9c3ca"/>
+          <rect x="68" y="102" width="94" height="10" fill="#18344d"/>
+          <g stroke="#0e2234" stroke-width="1.2" opacity=".7">
+            <path d="M84 102v10M100 102v10M116 102v10M132 102v10M148 102v10"/>
+          </g>
+          <rect x="68" y="102" width="94" height="3" fill="#fff" opacity=".18"/>
+          <!-- accommodation windows -->
+          <g fill="#27465e">
+            <rect x="50" y="128" width="9" height="6"/><rect x="66" y="128" width="9" height="6"/><rect x="82" y="128" width="9" height="6"/><rect x="98" y="128" width="9" height="6"/><rect x="114" y="128" width="9" height="6"/><rect x="130" y="128" width="9" height="6"/><rect x="146" y="128" width="9" height="6"/>
+            <rect x="50" y="144" width="9" height="6"/><rect x="66" y="144" width="9" height="6"/><rect x="82" y="144" width="9" height="6"/><rect x="98" y="144" width="9" height="6"/><rect x="114" y="144" width="9" height="6"/><rect x="130" y="144" width="9" height="6"/><rect x="146" y="144" width="9" height="6"/>
+            <rect x="50" y="160" width="9" height="6"/><rect x="66" y="160" width="9" height="6"/><rect x="82" y="160" width="9" height="6"/><rect x="98" y="160" width="9" height="6"/><rect x="114" y="160" width="9" height="6"/><rect x="130" y="160" width="9" height="6"/><rect x="146" y="160" width="9" height="6"/>
+          </g>
+          <rect x="40" y="118" width="130" height="68" fill="url(#sunSide)"/>
+          <!-- mast + radar -->
+          <path d="M115 96V70M115 76h-14M115 76h14M115 70l-3-6M115 70l3-6" stroke="#cfd6db" stroke-width="2" fill="none"/>
+          <rect x="106" y="86" width="18" height="3" fill="#9aa6af"/>
+          <circle cx="115" cy="62" r="2.4" fill="#ff4b3e" class="beacon"/>
+        </g>
+
+        <!-- hull -->
+        <path d="M30 184H646Q678 180 697 150L684 218Q672 248 640 252H70Q38 252 30 226Z" fill="url(#hullG)"/>
+        <path d="M30 226Q38 252 70 252H640Q672 248 684 218L682 232H32Z" fill="url(#redG)"/>
+        <path d="M30 184H646Q678 180 697 150L694 160Q676 184 646 190H30Z" fill="#0b121a" opacity=".7"/>
+        <rect x="30" y="196" width="652" height="2" fill="#fff" opacity=".12"/>
+        <!-- hull lettering -->
+        <text x="320" y="219" font-family="Fraunces, serif" font-weight="700" font-size="22" letter-spacing="4" fill="#f6f1e6" opacity=".92">LUCKY EXPORTS</text>
+        <!-- bow details -->
+        <circle cx="648" cy="206" r="4.5" fill="#0b121a" stroke="#6b7782" stroke-width="1.5"/>
+        <g fill="none" stroke="#0b121a" stroke-width="1.4">
+          <path d="M70 232h22M96 232h22"/>
+        </g>
+        <!-- railing -->
+        <path d="M172 178H640" stroke="#aab4bc" stroke-width="1.5" opacity=".8"/>
+        <g stroke="#aab4bc" stroke-width="1" opacity=".6" id="rail"></g>
+        <!-- forward mast + flag -->
+        <path d="M660 184V150" stroke="#cfd6db" stroke-width="2"/>
+        <path d="M660 152h22l-5 5 5 5h-22z" fill="#ff9933"/>
+        <path d="M660 157h19l-3 0-2 0h-14z" fill="#fff" opacity=".0"/>
+      </svg>
+      <div class="bow-foam"></div>
+      <div class="stern-wake"></div>
+    </div>
+  </div>
+
+  <div class="waves mid" data-wave="mid"></div>
+  <div class="waves front" data-wave="front"></div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a class="brand" href="#top" aria-label="Lucky Exports home">
+      <svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
+        <circle cx="20" cy="20" r="18" fill="#2f7d3a"/>
+        <circle cx="20" cy="22" r="11" fill="#7a4a24"/>
+        <circle cx="15.5" cy="20" r="1.8" fill="#2a170a"/><circle cx="21.5" cy="18.5" r="1.8" fill="#2a170a"/><circle cx="19" cy="25" r="1.8" fill="#2a170a"/>
+        <path d="M20 11c4-8 12-8 16-5-5 0-9 1-12 6zM20 11c-4-8-12-8-16-5 5 0 9 1 12 6z" fill="#8fd16a"/>
+      </svg>
+      <span>Lucky <b>Exports</b></span>
+    </a>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+    <ul class="links" id="links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#product">Product</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#terms">Terms</a></li>
+      <li><a class="cta-sm" href="#contact">Get a quote</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO COPY -->
+  <div class="hero-copy">
+    <p class="eyebrow">Namakkal, Tamil Nadu · Direct from India</p>
+    <h1>Fresh coconuts,<br>shipped across <em>oceans.</em></h1>
+    <p class="lede">Lucky Exports supplies semi-husked coconuts in bulk — farm-sourced in Tamil Nadu, packed with care and loaded at Tuticorin Port for importers worldwide.</p>
+    <div class="hero-actions">
+      <a class="btn primary" href="#contact">Request a quote <span aria-hidden="true">→</span></a>
+      <button class="btn horn" id="hornBtn" type="button"><span class="horn-ico" aria-hidden="true">📯</span> Sound the horn</button>
+    </div>
+  </div>
+  <div class="toot" id="toot" aria-hidden="true">TOOOOT!</div>
+  <a class="scroll-hint" href="#about" aria-label="Scroll down"><span></span></a>
+</header>
+
+<main>
+  <section class="strip" aria-label="Key facts">
+    <div><strong>Tuticorin</strong><span>Port of loading</span></div>
+    <div><strong>FOB</strong><span>Trade terms</span></div>
+    <div><strong>45–60 days</strong><span>Delivery period</span></div>
+    <div><strong>Bulk MT</strong><span>Container-load orders</span></div>
+  </section>
+
+  <section class="section about" id="about">
+    <div class="wrap two">
+      <div>
+        <p class="kicker">About us</p>
+        <h2>From the groves of Namakkal to ports around the world.</h2>
+      </div>
+      <div class="prose">
+        <p>Lucky Exports is a coconut exporter based in Karukkampalayam, Paramathi Velur Taluk, Namakkal District, Tamil Nadu. We source mature coconuts directly from local growers and prepare them for long sea voyages.</p>
+        <p>Every shipment is handled end to end — sorting, packing, loading and transport to the port — so importers receive a single, clear FOB price and a reliable delivery window.</p>
+        <ul class="ticks">
+          <li>Direct sourcing from Tamil Nadu coconut farms</li>
+          <li>Careful grading, packing and container loading</li>
+          <li>Transparent proforma invoicing and payment milestones</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section product" id="product">
+    <div class="wrap">
+      <p class="kicker">Our product</p>
+      <h2>Semi Husked Coconuts</h2>
+      <div class="product-grid">
+        <div class="product-art" aria-hidden="true">
+          <svg viewBox="0 0 320 320">
+            <defs>
+              <radialGradient id="nutG" cx=".35" cy=".3" r=".9">
+                <stop offset="0" stop-color="#b88455"/><stop offset=".6" stop-color="#7d4d28"/><stop offset="1" stop-color="#4a2a12"/>
+              </radialGradient>
+              <radialGradient id="huskG" cx=".4" cy=".3" r=".9">
+                <stop offset="0" stop-color="#c7d77a"/><stop offset="1" stop-color="#6d8a2e"/>
+              </radialGradient>
+            </defs>
+            <circle cx="160" cy="160" r="150" fill="#e7efe0"/>
+            <g transform="translate(70 70)">
+              <ellipse cx="90" cy="176" rx="70" ry="10" fill="#000" opacity=".15"/>
+              <path d="M90 6C140 6 172 52 172 100c0 50-34 76-82 76S8 150 8 100C8 52 40 6 90 6Z" fill="url(#huskG)"/>
+              <path d="M90 6C60 40 54 120 90 176M90 6C120 40 126 120 90 176M44 22C20 70 30 140 64 168M136 22c24 48 14 118-20 146" stroke="#4d6a1c" stroke-width="2" fill="none" opacity=".5"/>
+              <ellipse cx="90" cy="112" rx="52" ry="58" fill="url(#nutG)"/>
+              <circle cx="72" cy="104" r="4.5" fill="#2a170a"/><circle cx="92" cy="98" r="4.5" fill="#2a170a"/><circle cx="84" cy="120" r="4.5" fill="#2a170a"/>
+              <path d="M60 80c8-12 22-18 34-18" stroke="#fff" stroke-width="4" opacity=".25" fill="none" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
+        <div class="specs">
+          <p>Mature, heavy coconuts with the outer green husk partly removed — easier to pack, lighter to ship and kept fresh for the voyage.</p>
+          <dl>
+            <div><dt>Product</dt><dd>Semi Husked Coconuts</dd></div>
+            <div><dt>Origin</dt><dd>Tamil Nadu, India</dd></div>
+            <div><dt>Order size</dt><dd>Bulk, quoted per metric ton (MT)</dd></div>
+            <div><dt>Port of loading</dt><dd>Tuticorin Port, Tamil Nadu</dd></div>
+            <div><dt>Packing</dt><dd>Packing, loading &amp; transport included in FOB value</dd></div>
+            <div><dt>Delivery period</dt><dd>45–60 days</dd></div>
+          </dl>
+          <a class="btn primary dark" href="#contact">Ask for today's price <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section process" id="process">
+    <div class="wrap">
+      <p class="kicker light">How it works</p>
+      <h2 class="light">Farm to freight in five steps.</h2>
+      <ol class="steps">
+        <li><span>01</span><h3>Sourcing</h3><p>Mature coconuts collected from partner farms around Namakkal.</p></li>
+        <li><span>02</span><h3>Husking &amp; grading</h3><p>Semi-husked, sorted by size and weight, damaged nuts removed.</p></li>
+        <li><span>03</span><h3>Packing</h3><p>Packed for ventilation and loaded carefully into containers.</p></li>
+        <li><span>04</span><h3>Port of Tuticorin</h3><p>Road transport, customs clearance and loading on board.</p></li>
+        <li><span>05</span><h3>At sea &amp; delivered</h3><p>Shipped to your port within 45–60 days of order.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section terms" id="terms">
+    <div class="wrap two">
+      <div>
+        <p class="kicker">Terms</p>
+        <h2>Clear terms, no surprises.</h2>
+        <p class="muted">Every order starts with a proforma invoice stating quantity, unit price in USD per MT, total FOB value, port and delivery period.</p>
+      </div>
+      <div class="pay">
+        <h3>Payment schedule</h3>
+        <div class="bar" role="img" aria-label="50 percent advance, 20 percent within 10 days, 30 percent before dispatch">
+          <div style="--w:50"><b>50%</b><span>Advance</span></div>
+          <div style="--w:20"><b>20%</b><span>10 days</span></div>
+          <div style="--w:30"><b>30%</b><span>Before dispatch</span></div>
+        </div>
+        <ul class="ticks">
+          <li>Trade term: FOB Tuticorin Port, India</li>
+          <li>Currency: US dollars (USD)</li>
+          <li>Country of origin: India</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact">
+    <div class="wrap two">
+      <div>
+        <p class="kicker light">Contact</p>
+        <h2 class="light">Let's plan your next shipment.</h2>
+        <p class="lede-dark">Tell us the quantity, destination port and timing — we will reply with a proforma invoice.</p>
+      </div>
+      <address class="card">
+        <h3>Lucky Exports</h3>
+        <p>Karukkampalayam, Kolaram Post<br>Paramathi Velur Taluk<br>Namakkal District<br>Tamil Nadu – 637201, India</p>
+        <p class="ph"><b>Email</b> <span>your-email@example.com</span></p>
+        <p class="ph"><b>Phone / WhatsApp</b> <span>+91 00000 00000</span></p>
+      </address>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>© <span id="yr">2026</span> Lucky Exports · Namakkal, Tamil Nadu, India</p>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var NS = 'http://www.w3.org/2000/svg';
+
+  /* ---------- waves ---------- */
+  function wavePath(w, h, base, amp, periods, phase) {
+    var d = 'M0,' + h;
+    for (var x = 0; x <= w; x += 20) {
+      var y = base + amp * Math.sin((x / (w / 2)) * Math.PI * periods + phase) +
+              amp * .35 * Math.sin((x / (w / 2)) * Math.PI * periods * 2.3 + phase * 1.7);
+      d += ' L' + x + ',' + y.toFixed(1);
+    }
+    return d + ' L' + w + ',' + h + ' Z';
+  }
+  var waveCfg = {
+    back:  { fill: ['#2c86a6', '#1d6a89'], base: 40, amp: 7,  periods: 5, phase: 0 },
+    mid:   { fill: ['#1b6f93', '#0d4a69'], base: 44, amp: 12, periods: 4, phase: 1.3 },
+    front: { fill: ['#0e5578', '#05253b'], base: 40, amp: 15, periods: 3, phase: 2.6 }
+  };
+  document.querySelectorAll('.waves').forEach(function (el, i) {
+    var c = waveCfg[el.dataset.wave], id = 'wg' + i;
+    el.innerHTML =
+      '<svg viewBox="0 0 2400 120" preserveAspectRatio="none" aria-hidden="true">' +
+      '<defs><linearGradient id="' + id + '" x1="0" y1="0" x2="0" y2="1">' +
+      '<stop offset="0" stop-color="' + c.fill[0] + '"/><stop offset="1" stop-color="' + c.fill[1] + '"/></linearGradient></defs>' +
+      '<path d="' + wavePath(2400, 120, c.base, c.amp, c.periods, c.phase) + '" fill="url(#' + id + ')"/>' +
+      '<path d="' + wavePath(2400, 120, c.base, c.amp, c.periods, c.phase).replace(/ L2400,120 Z$/, '').replace(/^M0,120/, 'M0,' + c.base) +
+      '" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2"/></svg>';
+  });
+
+  /* ---------- containers on deck ---------- */
+  var colors = ['#c0392b', '#2e6da4', '#d98a1c', '#2f8f5b', '#7a3e8e', '#e8e4da', '#b8432f', '#1f4e79', '#c9a227', '#3a8c8c'];
+  var seed = 7;
+  function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+  var g = document.getElementById('containers');
+  var cw = 37, ch = 23, x0 = 178, baseY = 184;
+  var cols = Math.floor((640 - x0) / cw);
+  for (var c = 0; c < cols; c++) {
+    var rowsN = c < 2 ? 3 : (c > cols - 3 ? 2 : 4 + (rnd() > .55 ? 1 : 0));
+    for (var r = 0; r < rowsN; r++) {
+      var col = colors[Math.floor(rnd() * colors.length)];
+      var x = x0 + c * cw, y = baseY - (r + 1) * ch;
+      var grp = document.createElementNS(NS, 'g');
+      grp.innerHTML =
+        '<rect x="' + x + '" y="' + y + '" width="' + (cw - 1) + '" height="' + (ch - 1) + '" fill="' + col + '"/>' +
+        '<g stroke="#000" stroke-opacity=".28" stroke-width="1.1">' +
+        [4, 8, 12, 16, 20, 24, 28, 32].map(function (o) { return '<path d="M' + (x + o) + ' ' + (y + 2) + 'v' + (ch - 5) + '"/>'; }).join('') +
+        '</g>' +
+        '<rect x="' + x + '" y="' + y + '" width="' + (cw - 1) + '" height="2.5" fill="#fff" opacity=".28"/>' +
+        '<rect x="' + x + '" y="' + (y + ch - 3.5) + '" width="' + (cw - 1) + '" height="2.5" fill="#000" opacity=".3"/>' +
+        '<rect x="' + (x + cw - 7) + '" y="' + y + '" width="6" height="' + (ch - 1) + '" fill="#ffb066" opacity=".16"/>';
+      g.appendChild(grp);
+    }
+  }
+  var rail = document.getElementById('rail');
+  for (var rx = 176; rx <= 640; rx += 16) {
+    var p = document.createElementNS(NS, 'path');
+    p.setAttribute('d', 'M' + rx + ' 178v6');
+    rail.appendChild(p);
+  }
+
+  /* ---------- smoke ---------- */
+  var smoke = document.getElementById('smoke');
+  var N = 10;
+  for (var i = 0; i < N; i++) {
+    var puff = document.createElement('i');
+    puff.className = 'puff';
+    puff.style.animationDelay = (-i * 6.5 / N).toFixed(2) + 's';
+    puff.style.setProperty('--dx', (-14 - rnd() * 10).toFixed(1) + 'cqw');
+    puff.style.setProperty('--dy', (-22 - rnd() * 8).toFixed(1) + 'cqw');
+    puff.style.setProperty('--s', (3 + rnd() * 1.6).toFixed(2));
+    smoke.appendChild(puff);
+  }
+
+  /* ---------- horn ---------- */
+  var ctx, hornBusy = false;
+  var btn = document.getElementById('hornBtn');
+  var toot = document.getElementById('toot');
+
+  function playHorn() {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    ctx = ctx || new AC();
+    if (ctx.state === 'suspended') ctx.resume();
+    var t = ctx.currentTime, dur = 2.3;
+    var master = ctx.createGain();
+    master.gain.setValueAtTime(0.0001, t);
+    master.gain.exponentialRampToValueAtTime(0.5, t + 0.12);
+    master.gain.setValueAtTime(0.5, t + dur - 0.7);
+    master.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+    var lp = ctx.createBiquadFilter();
+    lp.type = 'lowpass'; lp.frequency.value = 900; lp.Q.value = 2;
+
+    // simple echo across the water
+    var delay = ctx.createDelay(1); delay.delayTime.value = 0.32;
+    var fb = ctx.createGain(); fb.gain.value = 0.28;
+    var wet = ctx.createGain(); wet.gain.value = 0.35;
+    delay.connect(fb); fb.connect(delay); delay.connect(wet);
+
+    master.connect(lp);
+    lp.connect(ctx.destination);
+    lp.connect(delay);
+    wet.connect(ctx.destination);
+
+    [73.4, 110, 146.8, 185].forEach(function (f, idx) {
+      var o = ctx.createOscillator();
+      o.type = idx < 2 ? 'sawtooth' : 'square';
+      o.frequency.setValueAtTime(f * 0.94, t);
+      o.frequency.exponentialRampToValueAtTime(f, t + 0.25);
+      o.detune.value = (idx - 1.5) * 4;
+      var og = ctx.createGain(); og.gain.value = idx < 2 ? 0.5 : 0.16;
+      o.connect(og); og.connect(master);
+      o.start(t); o.stop(t + dur + 0.1);
+    });
+  }
+
+  function steamBurst() {
+    for (var i = 0; i < 9; i++) {
+      var s = document.createElement('i');
+      s.className = 'puff steam';
+      s.style.setProperty('--dx', (-8 - Math.random() * 26).toFixed(1) + 'cqw');
+      s.style.setProperty('--dy', (-10 - Math.random() * 14).toFixed(1) + 'cqw');
+      s.style.setProperty('--s', (1.8 + Math.random() * 1.8).toFixed(2));
+      s.style.animationDelay = (i * 0.12).toFixed(2) + 's';
+      smoke.appendChild(s);
+      setTimeout(function (el) { el.remove(); }.bind(null, s), 4200);
+    }
+  }
+
+  function blow() {
+    if (hornBusy) return;
+    hornBusy = true;
+    playHorn();
+    steamBurst();
+    btn.classList.add('on');
+    toot.classList.remove('go'); void toot.offsetWidth; toot.classList.add('go');
+    setTimeout(function () { btn.classList.remove('on'); hornBusy = false; }, 2400);
+  }
+  btn.addEventListener('click', blow);
+  document.getElementById('ship').addEventListener('click', blow);
+
+  /* ---------- nav ---------- */
+  var burger = document.getElementById('burger'), links = document.getElementById('links');
+  burger.addEventListener('click', function () {
+    var open = links.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open);
+  });
+  links.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A') { links.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
+  });
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+})();
+
+</script>
+</body>
+</html>

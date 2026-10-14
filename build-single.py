@@ -69,13 +69,6 @@ html = html.replace('<script src="script.js"></script>', loader + '<script>\n' +
 # ---- fold the order-journey page into the same file (opens as a full-screen overlay) ----
 import json
 journey = rd('order-journey.html')
-journey = journey.replace('<a class="back" href="lucky-exports.html">← Lucky Exports</a>', '<a class="back" href="#" id="closeJ">← Back to site</a>')
-journey = journey.replace('href="lucky-exports.html#contact"', 'href="#" id="ctaJ"')
-journey = journey.replace('</body>', """<script>
-document.getElementById('closeJ').addEventListener('click', function (e) { e.preventDefault(); parent.postMessage('lucky:close', '*'); });
-document.getElementById('ctaJ').addEventListener('click', function (e) { e.preventDefault(); parent.postMessage('lucky:contact', '*'); });
-</script>
-</body>""")
 html = html.replace('href="order-journey.html"', 'href="#journey" data-journey')
 overlay = """
 <div id="journeyOverlay" hidden style="position:fixed;inset:0;z-index:1000;background:#06150d">
