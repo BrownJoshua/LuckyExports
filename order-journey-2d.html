@@ -57,21 +57,7 @@ a{color:inherit;text-decoration:none}
 .bar .dot.on{border-color:var(--lime);background:var(--lime)}
 .bar .lab{position:absolute;top:-16px;transform:translateX(-50%);font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.85;white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.5)}
 
-.tracker{position:absolute;z-index:22;right:max(14px,1.6vw);top:78px;width:min(290px,26vw);max-height:calc(100% - 190px);display:flex;flex-direction:column;
-  background:rgba(6,21,13,.62);border:1px solid rgba(255,255,255,.2);border-radius:18px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);overflow:hidden}
-.tk-head{display:flex;justify-content:space-between;align-items:baseline;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.14);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
-.tk-head b{font:700 1.15rem 'Fraunces',serif;letter-spacing:0;text-transform:none;color:var(--lime)}
-.tracker ol{list-style:none;overflow-y:auto;padding:8px 10px 6px;scrollbar-width:none;scroll-behavior:smooth}
-.tracker ol::-webkit-scrollbar{display:none}
-.tracker li{position:relative;padding:5px 8px 5px 28px;font-size:.78rem;line-height:1.35;opacity:.42;transition:opacity .35s,background .35s;border-radius:8px}
-.tracker li::before{content:"";position:absolute;left:8px;top:8px;width:12px;height:12px;border-radius:50%;border:2px solid rgba(255,255,255,.5);transition:.3s}
-.tracker li small{display:block;font-size:.66rem;letter-spacing:.06em;opacity:.7;text-transform:uppercase}
-.tracker li.done{opacity:.9}
-.tracker li.done::before{background:var(--lime);border-color:var(--lime)}
-.tracker li.cur{opacity:1;background:rgba(255,255,255,.14);font-weight:700}
-.tracker li.cur::before{background:#fff;border-color:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.25)}
-.tk-foot{padding:8px 16px 12px;font-size:.66rem;opacity:.6}
-.daym{display:none;position:absolute;z-index:22;right:12px;top:58px;font:700 .8rem 'Manrope',sans-serif;padding:6px 12px;border-radius:99px;background:rgba(6,21,13,.6);border:1px solid rgba(255,255,255,.22);color:var(--lime)}
+.daym{display:block;position:absolute;z-index:22;right:12px;top:58px;font:700 .8rem 'Manrope',sans-serif;padding:6px 12px;border-radius:99px;background:rgba(6,21,13,.6);border:1px solid rgba(255,255,255,.22);color:var(--lime)}
 .toast{position:absolute;z-index:26;left:50%;top:max(66px,9vh);transform:translate(-50%,-14px);padding:10px 18px;border-radius:99px;background:#fff;color:#06150d;font-weight:700;font-size:.86rem;box-shadow:0 10px 30px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;max-width:calc(100% - 24px);text-align:center}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 .hint{position:absolute;z-index:20;left:50%;bottom:64px;transform:translateX(-50%);font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:var(--hint,1);
@@ -96,7 +82,6 @@ a{color:inherit;text-decoration:none}
 .blink{animation:bl 1.2s steps(1) infinite}
 @keyframes bl{50%{opacity:.25}}
 
-@media (max-width:1000px){.tracker{display:none}.daym{display:block}}
 @media (max-width:700px){
   .steps{top:58px;left:12px;right:12px;transform:none;overflow-x:auto;justify-content:flex-start;padding-bottom:2px;scrollbar-width:none}
   .steps::-webkit-scrollbar{display:none}
@@ -135,11 +120,6 @@ a{color:inherit;text-decoration:none}
     <div class="cap" data-i="3"><span class="no">04</span><h2>Ocean freight</h2><p>Bill of lading issued and the vessel sails. Transit takes weeks, depending on the route.</p></div>
     <div class="cap" data-i="4"><span class="no">05</span><h2>Arrival &amp; delivery</h2><p>Import clearance and delivery order, then the container is trucked to the importer's warehouse.</p></div>
 
-    <aside class="tracker" id="tracker" aria-label="Shipment tracker">
-      <div class="tk-head"><span>Shipment tracker</span><b id="dayTxt">Step 1 / 20</b></div>
-      <ol id="tkList"></ol>
-      <p class="tk-foot">Indicative timeline for a bulk FOB order.</p>
-    </aside>
     <div class="daym" id="dayM" aria-hidden="true">Step 1 / 20</div>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <div class="hint" id="hint">Scroll to follow an order ↓</div>
@@ -617,16 +597,13 @@ a{color:inherit;text-decoration:none}
     [.84, 'Vessel arrives at destination port'], [.875, 'Import customs cleared, delivery order issued'], [.915, 'Container lifted onto delivery truck'],
     [.965, "Truck leaves for the importer's warehouse"], [.985, "Delivered to the importer's warehouse"]
   ];
-  var tkList = $('tkList'), tkEls = [], lastMs = -1, toastEl = $('toast'), toastT = 0;
-  MS.forEach(function (m) { var li = document.createElement('li'); li.innerHTML = '<small>Step ' + (tkEls.length + 1) + '</small>' + m[1]; tkList.appendChild(li); tkEls.push(li); });
+  var lastMs = -1, toastEl = $('toast'), toastT = 0;
   function tracker(p) {
     var idx = 0; for (var i = 0; i < MS.length; i++) if (p >= MS[i][0]) idx = i;
-    var d = 'Step ' + (idx + 1) + ' / ' + MS.length; $('dayTxt').textContent = d; $('dayM').textContent = d;
+    var d = 'Step ' + (idx + 1) + ' / ' + MS.length; $('dayM').textContent = d;
     if (idx !== lastMs) {
       var up = idx > lastMs && lastMs >= 0;
       lastMs = idx;
-      tkEls.forEach(function (li, i) { li.classList.toggle('done', i < idx); li.classList.toggle('cur', i === idx); });
-      var cur = tkEls[idx]; if (cur && tkList.scrollHeight > tkList.clientHeight) tkList.scrollTop = cur.offsetTop - tkList.clientHeight / 2 + cur.offsetHeight / 2;
       if (up) { toastEl.textContent = '✓ ' + MS[idx][1]; toastEl.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(function () { toastEl.classList.remove('on'); }, 2600); }
     }
   }

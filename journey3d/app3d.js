@@ -508,15 +508,12 @@
     [.84, 'Vessel arrives at destination port'], [.875, 'Import customs cleared, delivery order issued'], [.915, 'Container lifted onto delivery truck'],
     [.965, "Truck leaves for the importer's warehouse"], [.985, "Delivered to the importer's warehouse"]
   ];
-  var tkList = $('tkList'), tkEls = [], lastMs = -1, toastEl = $('toast'), toastT = 0;
-  MS.forEach(function (m, i) { var li = document.createElement('li'); li.innerHTML = '<small>Step ' + (i + 1) + '</small>' + m[1]; tkList.appendChild(li); tkEls.push(li); });
+  var lastMs = -1, toastEl = $('toast'), toastT = 0;
   function tracker(p) {
     var idx = 0; for (var i = 0; i < MS.length; i++) if (p >= MS[i][0]) idx = i;
-    var d = 'Step ' + (idx + 1) + ' / ' + MS.length; $('dayTxt').textContent = d; $('dayM').textContent = d;
+    var d = 'Step ' + (idx + 1) + ' / ' + MS.length; $('dayM').textContent = d;
     if (idx !== lastMs) {
       var up = idx > lastMs && lastMs >= 0; lastMs = idx;
-      tkEls.forEach(function (li, i) { li.classList.toggle('done', i < idx); li.classList.toggle('cur', i === idx); });
-      var cur = tkEls[idx]; if (cur && tkList.scrollHeight > tkList.clientHeight) tkList.scrollTop = cur.offsetTop - tkList.clientHeight / 2 + cur.offsetHeight / 2;
       if (up) { toastEl.textContent = '✓ ' + MS[idx][1]; toastEl.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(function () { toastEl.classList.remove('on'); }, 2600); }
     }
   }
